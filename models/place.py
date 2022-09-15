@@ -1,20 +1,13 @@
-3ce Module for HBNB project """
+#!/usr/bin/python3
+"""Module for HBNB project """
 
 from os import getenv
-
 import models
-
 from models.base_model import BaseModel, Base
-
 from models.review import Review
-
 from models.amenity import Amenity
-
 from sqlalchemy import Column, Table, String, Integer, Float, ForeignKey
-
 from sqlalchemy.orm import relationship
-
-
 
 if getenv("HBNB_TYPE_STORAGE") == "db":
 
@@ -33,18 +26,11 @@ if getenv("HBNB_TYPE_STORAGE") == "db":
                                  primary_key=True))
 
 
-
-
-
 class Place(BaseModel, Base):
 
     """ A place to stay """
 
-
-
     __tablename__ = "places"
-
-
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
 
@@ -78,8 +64,6 @@ class Place(BaseModel, Base):
 
                                  viewonly=False)
 
-
-
     else:
 
         city_id = ""
@@ -104,10 +88,7 @@ class Place(BaseModel, Base):
 
         amenity_ids = []
 
-
-
         @property
-
         def reviews(self):
 
             """ Returns the list of Review instances with
@@ -126,10 +107,7 @@ class Place(BaseModel, Base):
 
             return lst
 
-
-
         @property
-
         def amenities(self):
 
             """Amenities getter"""
@@ -146,10 +124,7 @@ class Place(BaseModel, Base):
 
             return lst
 
-
-
         @amenities.setter
-
         def amenities(self, obj):
 
             """Amenities setter"""

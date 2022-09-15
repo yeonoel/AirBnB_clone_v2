@@ -1,40 +1,24 @@
 #!/usr/bin/python3
-
 """This module defines a base class for all models in our hbnb clone"""
 
 from os import getenv
-
 import uuid
-
 import models
-
 from datetime import datetime
-
 from sqlalchemy.ext.declarative import declarative_base
-
 from sqlalchemy import Column, String, DateTime
-
-
 
 Base = declarative_base()
 
 
-
-
-
 class BaseModel:
-
     """A base class for all hbnb models"""
 
-
-
-    id = Column(String(60), nullable=False, primary_key=True)
+    id = Column(String(60), primary_key=True, nullable=False)
 
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-
-
 
     def __init__(self, *args, **kwargs):
 
@@ -68,8 +52,6 @@ class BaseModel:
 
         self.__dict__.update(kwargs)
 
-
-
     def __str__(self):
 
         """Returns a string representation of the instance"""
@@ -84,8 +66,6 @@ class BaseModel:
 
         return '[{}] ({}) {}'.format(cls, self.id, dict)
 
-
-
     def save(self):
 
         """Updates updated_at with current time when instance is changed"""
@@ -95,8 +75,6 @@ class BaseModel:
         models.storage.new(self)
 
         models.storage.save()
-
-
 
     def to_dict(self):
 
@@ -119,8 +97,6 @@ class BaseModel:
             dictionary.pop("_sa_instance_state")
 
         return dictionary
-
-
 
     def delete(self):
 
