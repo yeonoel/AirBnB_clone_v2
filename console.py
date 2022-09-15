@@ -223,17 +223,10 @@ class HBNBCommand(cmd.Cmd):
 
                 else:
 
-                    try:
-
-                        value = int(value)
-                    except:
-
-                        continue
-
+                    value = int(value)
                 setattr(new_instance, key, value)
 
         new_instance.save()
-
         print(new_instance.id)
 
     def help_create(self):
