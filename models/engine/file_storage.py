@@ -1,22 +1,15 @@
 #!/usr/bin/python3
-
 """This module defines a class to manage file storage for hbnb clone"""
 
 import json
 
 
-
-
-
 class FileStorage:
-
     """This class manages storage of hbnb models in JSON format"""
 
     __file_path = 'file.json'
 
     __objects = {}
-
-
 
     def all(self, cls=None):
 
@@ -38,15 +31,11 @@ class FileStorage:
 
             return FileStorage.__objects
 
-
-
     def new(self, obj):
 
         """Adds new object to storage dictionary"""
 
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
-
-
 
     def save(self):
 
@@ -64,8 +53,6 @@ class FileStorage:
 
             json.dump(temp, f, sort_keys=True, indent=4)
 
-
-
     def delete(self, obj=None):
 
         """Deletes the object obj if obj is in __objects"""
@@ -79,8 +66,6 @@ class FileStorage:
                     tmp = k
 
             FileStorage.__objects.pop(tmp)
-
-
 
     def reload(self):
 
@@ -99,8 +84,6 @@ class FileStorage:
         from models.amenity import Amenity
 
         from models.review import Review
-
-
 
         classes = {
 
@@ -127,8 +110,6 @@ class FileStorage:
         except FileNotFoundError:
 
             pass
-
-
 
     def close(self):
 
