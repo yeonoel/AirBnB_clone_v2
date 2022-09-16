@@ -3,13 +3,15 @@
 
 from os import getenv
 import models
+from models import storage_type
 from models.base_model import BaseModel, Base
 from models.review import Review
 from models.amenity import Amenity
 from sqlalchemy import Column, Table, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-if getenv("HBNB_TYPE_STORAGE") == "db":
+
+if storage_type == "db":
 
     place_amenity = Table("place_amenity", Base.metadata,
 
@@ -32,7 +34,7 @@ class Place(BaseModel, Base):
 
     __tablename__ = "places"
 
-    if getenv("HBNB_TYPE_STORAGE") == "db":
+    if storage_type == "db":
 
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
 
