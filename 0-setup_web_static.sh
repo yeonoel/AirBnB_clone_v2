@@ -1,20 +1,33 @@
 #!/usr/bin/bash
-# This script sets up yhe web server for deployement of web_static
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-mkdir -p /data/web_static/
-mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/shared
+#sets up a web servers for the deployment of web_static
+
+apt-get update
+apt-get install -y nginx
+
 mkdir -p /data/web_static/releases/test/
-echo "<html>
-  <head>
-  </head>
-  <body>
-	Hello gys welcome to my light page!
-  </body>
-</html>" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test /data/web_static/current
-chown -R ubuntu:ubuntu /data
-sed -i '/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
+mkdir -p /data/web_static/shared/
+echo " Welcome to Holberton School" > /data/web_static/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+
+chown -R ubuntu /data/
+chgrp -R ubuntu /data/
+
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root   /var/www/html;
+    server_name _;
+    add_header X-Served-By $hostname;
+    location /hbnb_static {
+        alias /data/web_static/current;
+        index index.html index.htm;
+    }
+    error_page 404 /custom_404.html;
+    location =  /custom_404.html  {
+                root /usr/share/nginx/html;
+                internal;
+    }
+    rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4/$1 permanent;
+}" > /etc/nginx/sites-enabled/default
+
 service nginx restart
