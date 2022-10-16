@@ -41,4 +41,5 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
 
                     lst.append(city)
-            return
+            return lst
+
