@@ -1,91 +1,38 @@
-s is the 4th Flask setup script. """
-
-
+#!/usr/bin/python3
+"""Starts a Flask web application"""
 
 from flask import Flask
-
-
-
 app = Flask(__name__)
 
 
-
-
-
 @app.route('/', strict_slashes=False)
-
-def hello():
-
-    """
-
-        Flask route at root.
-
-        Displays 'Hello HBNB!'.
-
-    """
-
-    return "Hello HBNB!"
-
-
-
+def hello_holberton():
+    """Returns a string at the root route"""
+    return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-
 def hbnb():
-
-    """
-
-        Flask route at /hbnb.
-
-        Displays 'HBNB'.
-
-    """
-
-    return "HBNB"
-
-
-
+    """Returns a string at the /hbnb route"""
+    return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-
-def c(text):
-
-    """
-
-        Flask route at /c/<text>.
-
-        Displays 'C + <text>'.
-
-    """
-
-    return "C {}".format(text.replace('_', ' '))
+def cisfun(text):
+    """Returns a string at the /c/<text> route,
+    expands the <text> variable"""
+    new = text.replace('_', ' ')
+    return 'C %s' % new
 
 
-
-
-
-@app.route('/python', strict_slashes=False)
-
+@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-
-def python(text="is cool"):
-
-    """
-
-        Flask route at /python/(<text>).
-
-        Displays 'Python + <text>'.
-
-        Default value of <text> : 'is cool'.
-
-    """
-
-    return "Python {}".format(text.replace('_', ' '))
-
+def pythoniscool(text):
+    """Returns a string at the /python route, with a default text
+    of 'is cool', or the expansion of <text>"""
+    new = text.replace('_', ' ')
+    return 'Python %s' % new
 
 
 if __name__ == '__main__':
-
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0')
