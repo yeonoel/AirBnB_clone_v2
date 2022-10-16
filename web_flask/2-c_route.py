@@ -20,7 +20,8 @@ def hello_h():
 @app.route('/c/<text>', strict_slashes=False)
 def hello_c(text):
     """ Return string following by value of text."""
-    return ("C " + text)
+    x = text.replace("_", " ")
+    return ("C " + x)
 
 
 if __name__ == "__main__":
