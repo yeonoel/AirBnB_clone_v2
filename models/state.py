@@ -42,4 +42,3 @@ class State(BaseModel, Base):
 
                     lst.append(city)
             return lst
-
